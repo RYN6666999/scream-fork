@@ -145,6 +145,36 @@ CronList()
 - 新增 / 移除技能時
 - 技術棧變更時
 - 開發流程變更時
+- 安裝新的系統工具（codebase-memory-mcp / agentsview / OpenCLI）時
+
+---
+
+## 🧠 系統工具（已安裝）
+
+這些是安裝在本機的輔助工具，Scream Code 可以直接呼叫：
+
+### codebase-memory-mcp（v0.8.1）
+程式碼知識圖譜索引器。158 種語言，M 等級專案 <1 秒索引。
+- 啟動：`codebase-memory-mcp`
+- 索引專案：`codebase-memory-mcp cli index_repository '{"repo_path": "/path"}'`
+- 查詢架構：`codebase-memory-mcp cli get_architecture '{"repo_path": "/path"}'`
+- 已自動註冊為 MCP server，agent 可透過 MCP 工具直接使用
+
+### agentsview（v0.34.5）
+Coding Agent 會話分析。支援 20+ agent 平台的 session 瀏覽/搜尋/成本追蹤。
+- 啟動：`agentsview serve` → http://127.0.0.1:8080
+- 使用量查詢：`agentsview usage daily --breakdown`
+- Session 統計：`agentsview stats --format json`
+
+### OpenCLI（v1.8.4）
+把任何網站變成 CLI。AI agent 可直接操作已登入瀏覽器。
+- 安裝 browser skill：`npx skills add jackwener/opencli`
+- 使用 opencli-browser skill 讓 agent 操作網頁
+- 內建 100+ 站點適配器（小紅書/B站/知乎/Twitter/Reddit…）
+
+---
+
+## 📡 外部技能參考庫（Vibe Coding 雷達）
 
 ---
 
