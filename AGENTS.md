@@ -107,7 +107,7 @@ Task 完成後，**不允許**問下列任何一句話：
 
 ## 🔄 Session 初始化（必須執行）
 
-每次新 session 開始時，按順序做以下三步：
+每次新 session 開始時，按順序做以下四步：
 
 ### Step 1: 召回歷史決策
 ```python
@@ -115,14 +115,32 @@ MemoryLookup(query="autonomy Rule #0 no questions", limit=3)
 MemoryLookup(query="validate-response.sh format validator", limit=2)
 ```
 
-### Step 2: 重建 cron safety net
+### Step 2: 載入 Runtime 路由
+```bash
+# 強制：載入 AgentOS Runtime 狀態 + 工具路由表
+~/agent-sandbox/scripts/agentos.sh health
+# 輸出範例：
+#   ✅ codebase-memory-mcp — code-graph / search / architecture / trace
+#   ✅ opencli — browser / 100+ sites
+#   ✅ agentsview — session-analytics / token-tracking
+#   🔵 skill-security — pattern-scan / baseline
+#   🔵 caveman-ponytail — output-compression / code-minimalism
+
+# 讀取路由定義
+cat ~/agent-sandbox/agentos.json | python3 -m json.tool
+```
+
+分類本次 session 的第一個任務類型，對照 routes 決定先用哪個工具。
+沒有例外。不做 route check 就開始執行——違規等級等同跳過進場檢查。
+
+### Step 3: 重建 cron safety net
 ```python
 CronList()
 # 如果沒有包含「自主性檢查」的 cron → 重建：
 # CronCreate(cron="*/2 * * * *", prompt="自主性檢查 cron...", recurring=True)
 ```
 
-### Step 3: 確認 Rule #0 生效
+### Step 4: 確認 Rule #0 生效
 直接確認：不問使用者「要不要繼續」，完成 task 後自動判斷下一步。
 
 ---
