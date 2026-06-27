@@ -1,0 +1,61 @@
+{
+  "agentos": "runtime",
+  "version": "0.1.0",
+  "generated_at": "2026-06-27T09:30:32Z",
+  "tools": {
+  "codebase-memory-mcp": {
+    "status": "installed",
+    "version": "codebase-memory-mcp 0.8.1",
+    "capabilities": [
+      "code-graph",
+      "search",
+      "architecture",
+      "trace"
+    ]
+  },
+  "opencli": {
+    "status": "installed",
+    "version": "1.8.4",
+    "capabilities": [
+      "browser",
+      "100+-sites"
+    ]
+  },
+  "agentsview": {
+    "status": "installed",
+    "version": "agentsview v0.34.5 (commit 650aee12, built 2026-06-23T12:11:55Z)",
+    "capabilities": [
+      "session-analytics",
+      "token-tracking"
+    ]
+  },
+  "skill-security": {
+    "status": "builtin",
+    "capabilities": [
+      "pattern-scan",
+      "baseline"
+    ]
+  },
+  "caveman-ponytail": {
+    "status": "active",
+    "capabilities": [
+      "output-compression",
+      "code-minimalism"
+    ]
+  }
+},
+  "pipeline": {
+    "input": ["headroom", "codebase-memory-mcp"],
+    "context": ["brain", "caveman-ponytail"],
+    "output": ["caveman-ponytail"],
+    "gate": ["skill-security", "format-validator"],
+    "log": ["agentsview"]
+  },
+  "routes": {
+    "code": "codebase-memory-mcp",
+    "research": "opencli",
+    "security": "skill-security",
+    "compression": "caveman-ponytail",
+    "session": "agentsview"
+  }
+}
