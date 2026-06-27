@@ -1,6 +1,6 @@
 ---
 name: agentos
-description: 接上 AgentOS 基礎設施層。任務涉及真實驗收(跑 pytest)、跨 session 記憶(腦庫)、背景佇列/自修復、或使用者說「啟動 agentos / 接上辦公室 / 連 AgentOS」時呼叫。
+description: 接上 AgentOS 基礎設施層。使用者說「啟動 agentos / 接上辦公室 / 連 AgentOS」、或任務涉及真實驗收(pytest)、跨 session 記憶(腦庫)、背景佇列/自修復時呼叫。
 ---
 
 # AgentOS：你的基礎設施層（CLI 辦公室）
@@ -36,6 +36,15 @@ MemoryLookup(query="agentos API endpoint error", limit=2)
 | `agentos.sh verify` | `agentos.sh run "任務"`（全走 `run`） |
 | `knowledge write` | 用 `POST /knowledge`（沒有 `knowledge-write` 腳本） |
 | `curl localhost:8000/task/verify` | `~/agent-sandbox/scripts/agentos.sh run "..."`（用腳本不要直接 curl） |
+
+## 🧠 Common Rationalizations
+
+| 你心裡會想 | 事實 |
+|-----------|------|
+| 「只是跑個 verify，不用走 agentos 流程」 | 每次 verify 都要經過 AgentOS，這是強制關卡。 |
+| 「這個改動很小，跳過 safety gate 沒關係」 | Safety gate 不是針對改動大小，是針對不可逆操作。 |
+| 「先直接改 code 再補腦庫記錄」 | 先寫腦庫再動手，確保記憶不被遺漏。 |
+| 「我上次用過一樣的指令，這次不用查」 | API 會變。查 anti-hallucination 表，不要憑記憶。 |
 
 ## 接上（多半已經是接著的）
 

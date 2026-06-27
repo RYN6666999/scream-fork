@@ -1,6 +1,6 @@
 ---
 name: template-batch
-description: 精準模板批次工作流。從參考模板（SVG/PNG）中程式化分析字體、字級、絕對座標、去背等規格，鎖定後用同一引擎批量產出個人化文件（名牌、海報、識別證等）
+description: 使用者給出模板（SVG/PNG）要求批量產出個人化文件（名牌、海報、識別證等）時呼叫。
 version: 1.0.0
 ---
 
@@ -27,6 +27,15 @@ MemoryLookup(query="template batch SVG PNG deback position font", limit=3)
 | 樣張用 HTML/CSS，批量用 PIL | 樣張與批量必須用同一渲染引擎 |
 | 核准後偷換引擎 | 鎖定引擎後不可更換 |
 | 跳過去背分析直接做 | 去背分析是強制關卡，不可跳過 |
+
+## 🧠 Common Rationalizations
+
+| 你心裡會想 | 事實 |
+|-----------|------|
+| 「輸出看起來差不多，用肉眼調整就好」 | 用 PIL 分析，不許用肉眼猜。誤差 < 3% 才叫「差不多」。 |
+| 「先出一批再回來調樣張」 | 樣張沒過 → 量產不許開始。這是鐵律。 |
+| 「只是改一個字體大小，不用重新跑 Phase 1-3」 | 字體更改 = 規格變更 = 從 Phase 1 重新開始。 |
+| 「換一個引擎輸出更快」 | 核准後換引擎 = 從頭來過。樣張與量產必須同一引擎。 |
 
 ## 核心原則
 
@@ -66,11 +75,11 @@ MemoryLookup(query="template batch SVG PNG deback position font", limit=3)
 
 ```python
 # 掃描所有內嵌圖片的 mode 與 alpha channel
-for each_embedded_image in SVG:
+for each embedded_image in SVG:
     img = Image.open(image_data)
     if 'A' not in img.mode:
         # 無透明通道 → 必須去背
-
+        
         if img.mode == 'L':
             # 灰階圖：白底(>220) → 透明，其餘不透明
             arr = np.array(img)  # shape (H, W)
@@ -79,7 +88,7 @@ for each_embedded_image in SVG:
             rgba[:,:,1] = arr  # G = 灰階值
             rgba[:,:,2] = arr  # B = 灰階值
             rgba[:,:,3] = np.where(arr > 220, 0, 255)  # Alpha
-
+            
         elif img.mode == 'RGB':
             # 彩色圖：純白(>240 all channels) → 透明
             arr = np.array(img)
@@ -87,7 +96,7 @@ for each_embedded_image in SVG:
             rgba = np.zeros((H, W, 4), dtype=np.uint8)
             rgba[:,:,:3] = arr
             rgba[:,:,3] = np.where(white_mask, 0, 255)
-
+        
         # 驗證：透明比例 vs 不透明比例
         transparent_pct = np.sum(alpha < 50) / total * 100
         assert transparent_pct > 0, "去背後必須有透明像素"
