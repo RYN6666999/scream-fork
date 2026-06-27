@@ -1,0 +1,12 @@
+# ~/.scream-code/tui.toml
+# Terminal UI preferences for scream-code.
+# Agent/runtime settings stay in ~/.scream-code/config.toml.
+
+theme = "auto" # "auto" | "dark" | "light"
+
+[editor]
+command = "" # Empty uses $VISUAL / $EDITOR
+
+[notifications]
+enabled = true # true | false
+notification_condition = "unfocused" # "unfocused" | "always"

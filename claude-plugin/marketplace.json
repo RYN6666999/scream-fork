@@ -1,0 +1,24 @@
+{
+  "name": "scream-code-skills",
+  "owner": {
+    "name": "scream-code"
+  },
+  "metadata": {
+    "description": "Scream Code 專案技能 — AgentOS 橋接、模板批次處理、標準化排查流程",
+    "version": "0.5.13"
+  },
+  "plugins": [
+    {
+      "name": "scream-code",
+      "source": "https://github.com/RYN6666999/scream-fork",
+      "description": "Scream Code project skills: agent OS bridge, template batch processing, and standardized troubleshooting",
+      "version": "0.5.13",
+      "author": { "name": "scream-code" },
+      "homepage": "https://github.com/RYN6666999/scream-fork",
+      "repository": "https://github.com/RYN6666999/scream-fork",
+      "license": "MIT",
+      "keywords": ["scream-code", "agent-os", "template-batch", "troubleshooting"],
+      "category": "development"
+    }
+  ]
+}

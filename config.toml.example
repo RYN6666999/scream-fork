@@ -1,0 +1,17 @@
+# ~/.scream-code/config.toml
+# Copy this to config.toml and fill in your API key.
+
+default_model = "your-provider/your-model"
+default_thinking = true
+
+[providers.your-provider]
+type = "openai"
+api_key = "sk-or-your-api-key-here"
+base_url = "https://openrouter.ai/api/v1"
+
+[models."your-provider/your-model"]
+provider = "your-provider"
+model = "your-model"
+max_context_size = 1000000
+capabilities = ["thinking", "tool_use"]
+display_name = "your-model"

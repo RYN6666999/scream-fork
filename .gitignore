@@ -1,0 +1,10 @@
+config.toml
+device_id
+dream-lock.json
+session_index.jsonl
+sessions/
+logs/
+memory/
+catalog-cache.json
+user-history/
+.DS_Store
